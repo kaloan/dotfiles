@@ -245,7 +245,7 @@ nnoremap <leader>u :UndotreeToggle <bar> UndotreeFocus<CR>
 
 " Start NERDtree with vim unless reading with vimpager and switch cursor to
 " file buffer
-autocmd VimEnter * if &filetype !=#	'man'| NERDTree | wincmd p | endif
+autocmd VimEnter * if &filetype !=#	'man' && &filetype !=# none | NERDTree | wincmd p | endif
 
 " Close NERDtree buffer when it is the last remaining in a tab (so tab is closed too)
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
