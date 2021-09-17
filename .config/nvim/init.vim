@@ -9,10 +9,12 @@
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "	    for OpenVMS:  sys$login:.vimrc
 
-set runtimepath+=/home/kstoilov/.config/nvim
+set runtimepath+=~/.config/nvim
 
 " Required:
-set runtimepath+=/home/kstoilov/.config/nvim/plugged
+set runtimepath+=~/.config/nvim/plugged
+
+set runtimepath+=~/.config/nvim/lua
 
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -49,6 +51,10 @@ call plug#begin(stdpath('config') . '/plugged')
 
 " On-demand loading
  Plug 'scrooloose/nerdtree'
+
+" Language server setup
+ Plug 'neovim/nvim-lspconfig'
+ Plug 'nvim-lua/completion-nvim'
 
 " Plugin outside ~/.vim/plugged with post-update hook
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -259,6 +265,17 @@ nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <F5> :UndotreeToggle<CR>
 nnoremap <leader>u :UndotreeToggle <bar> UndotreeFocus<CR>
 
+
+" Quick surrond with quotes/parenthesis/etc
+nnoremap <leader>' ciw''<Esc>P
+nnoremap <leader>" ciw""<Esc>P
+nnoremap <leader>( ciw()<Esc>P
+nnoremap <leader>) ciw()<Esc>P
+nnoremap <leader>[ ciw[]<Esc>P
+nnoremap <leader>] ciw[]<Esc>P
+nnoremap <leader>{ ciw{}<Esc>P
+nnoremap <leader>} ciw{}<Esc>P
+
 augroup MYAUTOCMDS
     autocmd!
     " Start NERDtree with vim unless reading with vimpager and switch cursor to
@@ -274,4 +291,6 @@ augroup MYAUTOCMDS
     " Enable case sensitivity when typing commands
     autocmd CmdlineEnter / :setlocal ignorecase smartcase
     autocmd CmdlineEnter : :setlocal noignorecase nosmartcase
-augroup END 
+augroup END
+
+lua require('lsp_config')
