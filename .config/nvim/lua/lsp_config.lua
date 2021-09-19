@@ -1,4 +1,4 @@
-vim.cmd [[ packadd completion-nvim ]]
+--vim.cmd [[ packadd completion-nvim ]]
 
 local lsp = require('lspconfig')
 local completion = require('completion')

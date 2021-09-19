@@ -16,23 +16,32 @@ set runtimepath+=~/.config/nvim/plugged
 
 set runtimepath+=~/.config/nvim/lua
 
+source ~/.config/nvim/osc52.vim
+vmap <C-c> y:call SendViaOSC52(getreg('"'))<cr>
+
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin(stdpath('config') . '/plugged')
+call plug#begin(stdpath('data') . '/plugged')
 
 " Make sure you use single quotes
 " Statusline and color theme
  Plug 'vim-airline/vim-airline'
  Plug 'vim-airline/vim-airline-themes'
  Plug 'joshdick/onedark.vim'
-
+ Plug 'lambdalisue/battery.vim' 
+ Plug 'edkolev/tmuxline.vim' 
+ 
  "Better grep
  Plug 'jremmen/vim-ripgrep'
+ 
+ Plug 'honza/vim-snippets'
+
+ "Git in vim
  Plug 'tpope/vim-fugitive'
  
  " Add right tags
- Plug 'lyuts/vim-rtags'
+ "Plug 'lyuts/vim-rtags'
 
  "Used with undofile
  Plug 'mbbill/undotree'
@@ -44,30 +53,63 @@ call plug#begin(stdpath('config') . '/plugged')
  "Better change
  Plug 'tpope/vim-surround'
  Plug 'mattn/emmet-vim'
- Plug 'valloric/youcompleteme'
 
 " IMPORTANT!: REQUIRES A NERD FONT
  Plug 'ryanoasis/vim-devicons'
 
 " On-demand loading
  Plug 'scrooloose/nerdtree'
+ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+ "Plug 'kyazdani42/nvim-web-devicons' " for file icons
+ "Plug 'kyazdani42/nvim-tree.lua'
 
 " Language server setup
- Plug 'neovim/nvim-lspconfig'
- Plug 'nvim-lua/completion-nvim'
+ "Plug 'prabirshrestha/vim-lsp'
+ "Plug 'neovim/nvim-lspconfig'
+ "Plug 'nvim-lua/completion-nvim'
+ "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+ "Plug 'Shougo/neosnippet.vim'
+ "Plug 'Shougo/neosnippet-snippets'
+ "Plug 'thomasfaingnaert/vim-lsp-snippets'
+ "Plug 'thomasfaingnaert/vim-lsp-neosnippet'
+ "Plug 'prabirshrestha/async.vim'
+ "Plug 'prabirshrestha/asyncomplete.vim'
+ "Plug 'prabirshrestha/asyncomplete-lsp.vim'
+ 
+ "Plug 'runoshun/tscompletejob'
+ "Plug 'prabirshrestha/asyncomplete-tscompletejob.vim'
 
+ Plug 'neoclide/coc.nvim', {'branch': 'release'} 
+ Plug 'nvim-lua/plenary.nvim'
+ Plug 'nvim-telescope/telescope.nvim'
+ Plug 'fannheyward/telescope-coc.nvim'
+ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+ Plug 'BurntSushi/ripgrep'
+
+ "Better clipboard
+ Plug 'AckslD/nvim-neoclip.lua' 
+ Plug 'MattesGroeger/vim-bookmarks'
+ Plug 'tom-anders/telescope-vim-bookmarks.nvim'
+ "Plug 'RishabhRD/popfix'
+ "Plug 'RishabhRD/nvim-finder'
+ "Plug 'RishabhRD/nvim-lsputils'
+
+ 
 " Plugin outside ~/.vim/plugged with post-update hook
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " For window pop-ups
- Plug 'voldikss/vim-floaterm'
- Plug 'voldikss/fzf-floaterm'
-
-" For completion
- Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+ "Plug 'voldikss/vim-floaterm'
+ "Plug 'voldikss/fzf-floaterm'
 
 " Initialize plugin system
 call plug#end()
+
+lua require('telescope').load_extension('coc')
+lua require('telescope').load_extension('neoclip')
+lua require('telescope').load_extension('vim_bookmarks')
+
 
 " Required:
 filetype plugin indent on
@@ -137,6 +179,10 @@ endif
 " Set encoding to UTF8
 set encoding=utf8
 
+" Enable airline tabline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
 " Use powerline fonts in vim-airline statusline
 let g:airline_powerline_fonts=1
 
@@ -185,6 +231,7 @@ set exrc
 set signcolumn=yes
 
 set updatetime=50
+set shortmess+=c
 
 " Enable line numbering(relative+current line instead of 0)
 set number relativenumber
@@ -257,9 +304,13 @@ nnoremap <leader>v <C-w>v
 
 " Key combinations to help NERDtree
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+"nnoremap <C-h> :let NERDTreeShowHidden=1-NERDTreeShowHidden<CR>
+
+"nnoremap <leader>n :NvimTreeFocus<CR>
+"nnoremap <C-n> :NvimTreeToggle<CR>
+"nnoremap <C-f> :NvimTreeFind<CR>     
 
 " Used in undotree
 nnoremap <F5> :UndotreeToggle<CR>
@@ -293,4 +344,113 @@ augroup MYAUTOCMDS
     autocmd CmdlineEnter : :setlocal noignorecase nosmartcase
 augroup END
 
-lua require('lsp_config')
+" Enable deoplete on startup
+"let g:deoplete#enable_at_startup = 1
+
+" Enable snipMate compatibility feature.
+"let g:neosnippet#enable_snipmate_compatibility = 1
+
+" Tell Neosnippet about the other snippets
+"let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
+
+"lua require('lsp_config')
+
+"set foldmethod=expr
+  "\ foldexpr=lsp#ui#vim#folding#foldexpr()
+  "\ foldtext=lsp#ui#vim#folding#foldtext()
+
+"if executable('pyls')
+    "" pip install python-language-server
+    "au User lsp_setup call lsp#register_server({
+        "\ 'name': 'pyls',
+        "\ 'cmd': {server_info->['pyls']},
+        "\ 'allowlist': ['python'],
+        "\ })
+"endif
+
+"function! s:on_lsp_buffer_enabled() abort
+"    setlocal omnifunc=lsp#complete
+"    setlocal signcolumn=yes
+"    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+"    nmap <buffer> gd <plug>(lsp-definition)
+"    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+"    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+"    nmap <buffer> gr <plug>(lsp-references)
+"    nmap <buffer> gi <plug>(lsp-implementation)
+"    nmap <buffer> gt <plug>(lsp-type-definition)
+"    nmap <buffer> <leader>rn <plug>(lsp-rename)
+"    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+"    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+"    nmap <buffer> K <plug>(lsp-hover)
+"    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+"    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+"
+"    let g:lsp_format_sync_timeout = 1000
+"    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+"    
+"    " refer to doc to add more commands
+"endfunction
+
+"augroup lsp_install
+"    au!
+"    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+"    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+"augroup END
+
+
+" SNIPPETS
+"imap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
+"smap <expr> <Tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
+
+"if executable('clangd')
+"    augroup vim_lsp_cpp
+"        autocmd!
+"        autocmd User lsp_setup call lsp#register_server({
+"                    \ 'name': 'clangd',
+"                    \ 'cmd': {server_info->['clangd']},
+"                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+"                    \ })
+"	autocmd FileType c,cpp,objc,objcpp,cc setlocal omnifunc=lsp#complete
+"    augroup end
+"endif
+"
+"if has('conceal')
+"    set conceallevel=2 concealcursor=niv
+"endif
+"
+"set completeopt+=menuone
+"
+"
+"lua <<EOF
+"vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+"vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
+"vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
+"vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+"vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+"vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+"vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+"vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+"EOF
+"
+""lua require'popfix.sorter'.new_fzy_native_sorter(true)
+""lua require'popfix.fuzzy_enigne'.new_SingleExecutionEngine()
+"nnoremap <leader>p <cmd>lua require'finder'.files{}<CR>
+
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
