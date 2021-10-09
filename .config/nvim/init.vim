@@ -28,6 +28,7 @@ call plug#begin(stdpath('data') . '/plugged')
 " Statusline and color theme
  Plug 'vim-airline/vim-airline'
  Plug 'vim-airline/vim-airline-themes'
+ Plug 'flazz/vim-colorschemes'
  Plug 'joshdick/onedark.vim'
  Plug 'lambdalisue/battery.vim' 
  Plug 'edkolev/tmuxline.vim' 
@@ -36,6 +37,7 @@ call plug#begin(stdpath('data') . '/plugged')
  Plug 'jremmen/vim-ripgrep'
  
  Plug 'honza/vim-snippets'
+ Plug 'preservim/tagbar'
 
  "Git in vim
  Plug 'tpope/vim-fugitive'
@@ -49,10 +51,15 @@ call plug#begin(stdpath('data') . '/plugged')
  Plug 'wincent/terminus'
  Plug 'edkolev/promptline.vim'
  Plug 'adelarsq/vim-matchit'
+ Plug 'jiangmiao/auto-pairs'
 
  "Better change
  Plug 'tpope/vim-surround'
  Plug 'mattn/emmet-vim'
+ Plug 'junegunn/vim-easy-align'
+ Plug 'alvan/vim-closetag'
+ Plug 'tpope/vim-abolish'
+ Plug 'Yggdroot/indentLine'
 
 " IMPORTANT!: REQUIRES A NERD FONT
  Plug 'ryanoasis/vim-devicons'
@@ -61,24 +68,16 @@ call plug#begin(stdpath('data') . '/plugged')
  Plug 'scrooloose/nerdtree'
  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
- "Plug 'kyazdani42/nvim-web-devicons' " for file icons
- "Plug 'kyazdani42/nvim-tree.lua'
+ Plug 'kyazdani42/nvim-web-devicons' " for file icons
 
 " Language server setup
- "Plug 'prabirshrestha/vim-lsp'
  "Plug 'neovim/nvim-lspconfig'
  "Plug 'nvim-lua/completion-nvim'
  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
  "Plug 'Shougo/neosnippet.vim'
  "Plug 'Shougo/neosnippet-snippets'
- "Plug 'thomasfaingnaert/vim-lsp-snippets'
- "Plug 'thomasfaingnaert/vim-lsp-neosnippet'
- "Plug 'prabirshrestha/async.vim'
- "Plug 'prabirshrestha/asyncomplete.vim'
- "Plug 'prabirshrestha/asyncomplete-lsp.vim'
- 
- "Plug 'runoshun/tscompletejob'
- "Plug 'prabirshrestha/asyncomplete-tscompletejob.vim'
+
+
 
  Plug 'neoclide/coc.nvim', {'branch': 'release'} 
  Plug 'nvim-lua/plenary.nvim'
@@ -91,17 +90,15 @@ call plug#begin(stdpath('data') . '/plugged')
  Plug 'AckslD/nvim-neoclip.lua' 
  Plug 'MattesGroeger/vim-bookmarks'
  Plug 'tom-anders/telescope-vim-bookmarks.nvim'
- "Plug 'RishabhRD/popfix'
+ 
  "Plug 'RishabhRD/nvim-finder'
  "Plug 'RishabhRD/nvim-lsputils'
 
- 
-" Plugin outside ~/.vim/plugged with post-update hook
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " For window pop-ups
- "Plug 'voldikss/vim-floaterm'
- "Plug 'voldikss/fzf-floaterm'
+ Plug 'voldikss/vim-floaterm'
+ Plug 'voldikss/fzf-floaterm'
 
 " Initialize plugin system
 call plug#end()
@@ -109,9 +106,13 @@ call plug#end()
 lua require('telescope').load_extension('coc')
 lua require('telescope').load_extension('neoclip')
 lua require('telescope').load_extension('vim_bookmarks')
+lua require('telescope.builtin')
 
 
-" Required:
+nnoremap <leader>rc :tabnew $MYVIMRC<CR>
+nnoremap <leader>sp :source %<CR>
+
+" Make language plugins useful
 filetype plugin indent on
 syntax enable
 
@@ -196,8 +197,8 @@ set t_Co=256
 "let g:airline_theme='base16_atelier_cave'
 "let g:airline_theme='base16_black_metal_gorgoroth'
 "let g:airline_theme='deus'
-"let g:airline_theme='distinguished'
-let g:airline_theme='lighthaus'
+let g:airline_theme='distinguished'
+"let g:airline_theme='lighthaus'
 "let g:airline_theme='murmur'
 "let g:airline_theme='night_owl'
 "let g:airline_theme='onedark'
@@ -210,11 +211,22 @@ set guifont=SauceCodePro\ Nerd\ Font\ Mono\ Semibold\ 16
 " Enable syntax coloring
 syntax on
 
-" Use one-dark colorscheme
-colorscheme onedark
+" Use a colorscheme, 
+" colorscheme spartan
+" colorscheme janah
+" colorscheme luna
+" colorscheme zazen
+" colorscheme jellyx
+" colorscheme distill
+" these ones also have corresponding airline themes in the
+" previous list
+"colorscheme onedark
+"colorscheme ayu
+colorscheme distinguished
 
 " Change color of background to what I prefer
-highlight Normal ctermbg=232 guibg=#202020
+highlight Normal ctermbg=232 guibg=#131313
+
 
 " Change color of cursorline and column
 highlight CursorLine cterm=none ctermbg=235 guibg=#2F2F2F
@@ -222,7 +234,8 @@ highlight CursorColumn cterm=none ctermbg=235 guibg=#2F2F2F
 
 
 " Change color of the line number field
-highlight LineNr ctermfg=white guifg=white 
+highlight LineNr ctermfg=white guifg=#E06C75 
+"highlight LineNr ctermfg=white guifg=#B05050 
 
 " ?
 set exrc
@@ -241,7 +254,8 @@ set incsearch
 
 
 " Set how many spaces tab should look like
-set tabstop=4 softtabstop=4
+set tabstop=4 
+set softtabstop=4
 
 " 
 set shiftwidth=4
@@ -441,6 +455,24 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+nnoremap <leader>bm <cmd>Telescope vim_bookmarks<cr>
+
+lua << EOF
+require('telescope').setup({
+    defaults = {
+        layout_strategy = 'horizontal',
+        layout_config = {
+            prompt_position = 'top',
+            width = 0.9
+        },
+        sorting_strategy='ascending',
+        winblend = 20,
+        prompt_prefix = '🔍',
+        selection_caret = '🔍'
+    }
+})
+EOF
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
