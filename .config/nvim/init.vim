@@ -23,9 +23,11 @@ vmap <C-c> y:call SendViaOSC52(getreg('"'))<cr>
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin(stdpath('data') . '/plugged')
-
 " Make sure you use single quotes
-" Statusline and color theme
+ " Unicode completion and characters
+ Plug 'chrisbra/unicode.vim' 
+
+ " Statusline and color theme
  Plug 'vim-airline/vim-airline'
  Plug 'vim-airline/vim-airline-themes'
  Plug 'flazz/vim-colorschemes'
@@ -47,6 +49,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
  "Used with undofile
  Plug 'mbbill/undotree'
+ 
  Plug 'sjl/gundo.vim'
  Plug 'wincent/terminus'
  Plug 'edkolev/promptline.vim'
@@ -81,10 +84,14 @@ call plug#begin(stdpath('data') . '/plugged')
 
  Plug 'neoclide/coc.nvim', {'branch': 'release'} 
  Plug 'nvim-lua/plenary.nvim'
+ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+ Plug 'nvim-treesitter/nvim-treesitter-refactor', {'do': ':TSUpdate'} 
+ Plug 'David-Kunz/treesitter-unit'
+ Plug 'BurntSushi/ripgrep'
+
  Plug 'nvim-telescope/telescope.nvim'
  Plug 'fannheyward/telescope-coc.nvim'
- Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
- Plug 'BurntSushi/ripgrep'
+ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
  "Better clipboard
  Plug 'AckslD/nvim-neoclip.lua' 
@@ -95,22 +102,42 @@ call plug#begin(stdpath('data') . '/plugged')
  "Plug 'RishabhRD/nvim-lsputils'
 
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+ Plug 'junegunn/fzf.vim'
 
 " For window pop-ups
  Plug 'voldikss/vim-floaterm'
  Plug 'voldikss/fzf-floaterm'
 
-" Initialize plugin system
+ Plug 'mhinz/vim-signify'
+
+ " IMPORTANT: requires sqlite3 for the persistent history  
+ Plug 'tami5/sqlite.lua'
+ Plug 'AckslD/nvim-neoclip.lua'
+ 
+ " Sessions
+ Plug 'rmagatti/auto-session'
+ Plug 'rmagatti/session-lens'
+ 
+ " Useful csv functions
+ Plug 'chrisbra/csv.vim'
+ " Initialize plugin system
 call plug#end()
 
 lua require('telescope').load_extension('coc')
 lua require('telescope').load_extension('neoclip')
 lua require('telescope').load_extension('vim_bookmarks')
+lua require('telescope').load_extension('session-lens')
 lua require('telescope.builtin')
 
+"lua require"treesitter-unit".disable_highlighting()
 
 nnoremap <leader>rc :tabnew $MYVIMRC<CR>
 nnoremap <leader>sp :source %<CR>
+
+xnoremap iu :lua require"treesitter-unit".select()<CR>
+xnoremap au :lua require"treesitter-unit".select(true)<CR>
+onoremap iu :<c-u>lua require"treesitter-unit".select()<CR>
+onoremap au :<c-u>lua require"treesitter-unit".select(true)<CR>
 
 " Make language plugins useful
 filetype plugin indent on
@@ -226,7 +253,7 @@ colorscheme distinguished
 
 " Change color of background to what I prefer
 highlight Normal ctermbg=232 guibg=#131313
-
+highlight Visual term=reverse guifg=none guibg=#AAAAAA
 
 " Change color of cursorline and column
 highlight CursorLine cterm=none ctermbg=235 guibg=#2F2F2F
@@ -345,7 +372,7 @@ augroup MYAUTOCMDS
     autocmd!
     " Start NERDtree with vim unless reading with vimpager and switch cursor to
     " file buffer
-    autocmd VimEnter * if &filetype !=#	'man' && &filetype !=# '' | NERDTree | wincmd p | endif
+    autocmd VimEnter * if &filetype !=#	'man' && &filetype !=# '' && &filetype !=# 'conf' | NERDTree | wincmd p | endif
 
     " Close NERDtree buffer when it is the last remaining in a tab (so tab is closed too)
     autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
@@ -470,7 +497,15 @@ require('telescope').setup({
         winblend = 20,
         prompt_prefix = '🔍',
         selection_caret = '🔍'
+    },
+      extensions = {
+        fzf = {
+            fuzzy = true,                    -- false will only do exact matching
+            override_generic_sorter = true,  -- override the generic sorter
+            override_file_sorter = true,     -- override the file sorter
+            case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
     }
+  }
 })
 EOF
 
@@ -486,3 +521,47 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
+
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  refactor = {
+    highlight_definitions = { enable = true },
+    smart_rename = {
+      enable = true,
+      keymaps = {
+        smart_rename = "grr",
+      },
+    },
+  },
+}
+EOF
+
+lua <<EOF
+    require('neoclip').setup({
+      history = 1000,
+      enable_persistant_history = true,
+      db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
+      filter = nil,
+      preview = true,
+      default_register = '"',
+      content_spec_column = false,
+      on_paste = {
+        set_reg = false,
+      },
+      keys = {
+        i = {
+          select = '<cr>',
+          paste = '<c-p>',
+          paste_behind = '<c-k>',
+          custom = {},
+        },
+        n = {
+          select = '<cr>',
+          paste = 'p',
+          paste_behind = 'P',
+          custom = {},
+        },
+      },
+    })
+EOF

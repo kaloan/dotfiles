@@ -117,7 +117,8 @@ if ! shopt -oq posix; then
 fi
 
 # Set vimpager as standard pager
-export PAGER=/usr/bin/vimpager
+#export PAGER=/usr/bin/vimpager
+export PAGER="/bin/sh -c \"col -b | nvim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 alias less=$PAGER
 alias zless=$PAGER
 
@@ -146,3 +147,8 @@ alias ns="npm start"
 alias nt="npm test"
 alias nr="npm run"
 alias v="nvim"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+eval "$(zoxide init bash)"
