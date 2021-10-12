@@ -33,7 +33,8 @@ call plug#begin(stdpath('data') . '/plugged')
  Plug 'flazz/vim-colorschemes'
  Plug 'joshdick/onedark.vim'
  Plug 'lambdalisue/battery.vim' 
- Plug 'edkolev/tmuxline.vim' 
+ "By being commented out you can have different statusline in vim
+ "Plug 'edkolev/tmuxline.vim' 
  
  "Better grep
  Plug 'jremmen/vim-ripgrep'
