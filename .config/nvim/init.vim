@@ -343,6 +343,9 @@ nnoremap <leader>W <C-w>W
 nnoremap <leader>- <C-w>s
 nnoremap <leader>v <C-w>v
 
+" Ease moving through buffers
+nnoremap <nowait> <leader>b :bn<CR>
+nnoremap <nowait> <leader>B :bN<CR>
 
 " Key combinations to help NERDtree
 nnoremap <leader>n :NERDTreeFocus<CR>

@@ -1,0 +1,4 @@
+pane	0	0	1	:*	1	:/home/kstoilov/work/cross-worlds/server	1	bash	:
+pane	0	0	1	:*	2	:/home/kstoilov/work/cross-worlds/client	0	npm	:npm start
+window	0	0	:bash	1	:*	a42f,105x23,0,0[105x10,0,0,1,105x12,0,11,2]	:
+state	0	

@@ -1,0 +1,3 @@
+pane	project	0	1	:*	1	:/home/kstoilov	1	bash	:
+window	project	0	:bash	1	:*	b9fd,141x34,0,0,0	:
+state	project	

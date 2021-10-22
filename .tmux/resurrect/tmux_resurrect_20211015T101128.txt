@@ -1,0 +1,6 @@
+pane	dotfiles	0	1	:*	1	:/home/kstoilov	1	nvim	:/squashfs-root/usr/bin/nvim
+pane	project	0	1	:*	1	:/home/kstoilov/work/kstoilov/project/client	0	bash	:
+pane	project	0	1	:*	2	:/home/kstoilov/work/kstoilov/project/server	1	bash	:
+window	dotfiles	0	:nvim	1	:*	b9ff,141x34,0,0,2	:
+window	project	0	:bash	1	:*	a6f1,141x36,0,0[141x18,0,0,0,141x17,0,19,1]	:
+state	dotfiles	
