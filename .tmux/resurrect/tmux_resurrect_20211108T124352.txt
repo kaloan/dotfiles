@@ -1,0 +1,4 @@
+pane	0	0	1	:*	1	:/home/kstoilov/work/cross-worlds/server	1	bash	:
+pane	0	0	1	:*	2	:/home/kstoilov/work/cross-worlds/client	0	bash	:
+window	0	0	:bash	1	:*	fff3,141x36,0,0[141x17,0,0,1,141x18,0,18,2]	:
+state	0	

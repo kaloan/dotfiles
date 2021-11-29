@@ -1,0 +1,4 @@
+pane	0	0	1	:*	1	:/home/kstoilov/work/cross-worlds/server	1	npm	:npm start
+pane	0	0	1	:*	2	:/home/kstoilov/work/cross-worlds/client	0	npm	:npm start
+window	0	0	:[tmux]	1	:*	d6f1,141x34,0,0[141x16,0,0,1,141x17,0,17,2]	:
+state	0	

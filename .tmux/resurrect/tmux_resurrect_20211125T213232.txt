@@ -1,0 +1,12 @@
+pane	0	0	1	:*	1	:/home/kstoilov/work/cross-worlds	1	bash	:
+pane	0	0	1	:*	2	:/home/kstoilov/work/cross-worlds/client	0	bash	:
+pane	1	0	1	:*	1	:/home/kstoilov	1	bash	:
+pane	2	0	1	:*	1	:/home/kstoilov	1	bash	:
+pane	3	0	1	:*	1	:/home/kstoilov	1	bash	:
+pane	5	0	1	:*	1	:/home/kstoilov	1	bash	:
+window	0	0	:bash	1	:*	d6f1,141x34,0,0[141x16,0,0,1,141x17,0,17,2]	:
+window	1	0	:bash	1	:*	ba00,141x34,0,0,3	:
+window	2	0	:bash	1	:*	ba01,141x34,0,0,4	:
+window	3	0	:bash	1	:*	ba02,141x34,0,0,5	:
+window	5	0	:bash	1	:*	ba03,141x34,0,0,6	:
+state	0	3
