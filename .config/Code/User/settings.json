@@ -1,0 +1,65 @@
+{
+  "editor.fontSize": 16,
+  "editor.wordWrap": "on",
+  "window.zoomLevel": 2,
+  
+  "workbench.colorTheme": "Bearded Theme Black & Ruby",
+  "workbench.iconTheme": "material-icon-theme",
+  
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  
+  "eslint.workingDirectories": [{"mode": "auto"}],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+  "eslint.validate": [
+    "javascript", 
+    "typescript"
+  ],
+
+  "terminal.integrated.fontFamily": "'Hack Nerd Font Mono', 'monospace'",
+  "editor.fontFamily": " 'SauceCodePro Nerd Font Semibold', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "terminal.explorerKind": "external",
+  "terminal.integrated.fontSize": 13,
+  
+  "tabnine.experimentalAutoImports": true,
+
+  "turboConsoleLog.addSemicolonInTheEnd": true,
+  
+  "markdown-preview-enhanced.liveUpdate": false,
+
+  "todo-tree.general.statusBar": "top three",
+  "todo-tree.general.tags": ["TODO","FIXME","BUG", "IMPORTANT"],
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "check",
+      "type": "line",
+      "foreground": "lime",
+      "iconColour": "yellow",
+    },
+    "IMPORTANT": {
+      "type": "line",
+      "icon": "alert",
+      "foreground": "yellow",
+      "iconColour": "yellow",
+      "gutterIcon": true
+    },
+    "FIXME": {
+      "icon": "alert",
+      "foreground": "orange",
+      "iconColour": "orange",
+      "gutterIcon": true
+    },
+    "BUG": {
+      "icon": "alert",
+      "type": "line",
+      "foreground": "red",
+      "iconColour": "red",
+      "gutterIcon": true
+    }
+  },
+  "todo-tree.general.enableFileWatcher": true,
+}
