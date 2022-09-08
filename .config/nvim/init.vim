@@ -95,7 +95,6 @@ call plug#begin(stdpath('data') . '/plugged')
  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
  "Better clipboard
- Plug 'AckslD/nvim-neoclip.lua' 
  Plug 'MattesGroeger/vim-bookmarks'
  Plug 'tom-anders/telescope-vim-bookmarks.nvim'
  
@@ -282,11 +281,9 @@ set incsearch
 
 
 " Set how many spaces tab should look like
-set tabstop=4 
-set softtabstop=4
-
-" 
-set shiftwidth=4
+set tabstop=2 
+set softtabstop=2
+set shiftwidth=2
 
 " Make tabs spaces
 set expandtab
@@ -518,12 +515,12 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"inoremap <silent><expr> <TAB>
+"      \ pumvisible() ? coc#_select_confirm() :
+"      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"      \ <SID>check_back_space() ? "\<TAB>" :
+"      \ coc#refresh()
+"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -551,18 +548,19 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 lua <<EOF
-    require('neoclip').setup({
-      history = 1000,
-      enable_persistant_history = true,
-      db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
-      filter = nil,
-      preview = true,
-      default_register = '"',
-      content_spec_column = false,
-      on_paste = {
-        set_reg = false,
-      },
-      keys = {
+  require('neoclip').setup({
+    history = 1000,
+    enable_persistent_history = true,
+    db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
+    filter = nil,
+    preview = true,
+    default_register = '"',
+    content_spec_column = false,
+    on_paste = {
+      set_reg = false,
+    },
+    keys = {
+      telescope = {
         i = {
           select = '<cr>',
           paste = '<c-p>',
@@ -576,5 +574,6 @@ lua <<EOF
           custom = {},
         },
       },
-    })
+    }
+  })
 EOF
