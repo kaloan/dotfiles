@@ -19,6 +19,11 @@ export HISTSIZE=2000
 export SAVEHIST=2000
 setopt EXTENDED_HISTORY
 
+export LANG=en_US.UTF8
+export LANGUAGE=en_US.UTF8
+#unset LC_ALL
+#export LC_ALL=bg_BG.UTF-8
+
 # Make ranger exit at its current directory
 if [[ ! -f $HOME/.config/ranger/.rangerdir ]]; then
   touch $HOME/.config/ranger/.rangerdir
@@ -32,4 +37,8 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='nano -w PKGBUILD'
 alias more=less
+alias nf='nvim $(fzf)'
 #alias cp="cp -i"                          # confirm before overwriting something
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

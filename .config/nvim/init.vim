@@ -120,6 +120,10 @@ call plug#begin(stdpath('data') . '/plugged')
  
  " Useful csv functions
  Plug 'chrisbra/csv.vim'
+
+ " Scroller on the side
+ Plug 'dstein64/nvim-scrollview'
+ 
  " Initialize plugin system
 call plug#end()
 
@@ -263,6 +267,10 @@ highlight CursorColumn cterm=none ctermbg=235 guibg=#2F2F2F
 " Change color of the line number field
 highlight LineNr ctermfg=white guifg=#E06C75 
 "highlight LineNr ctermfg=white guifg=#B05050 
+
+" Change color of the scroll
+"highlight link ScrollView Pmenu
+highlight ScrollView ctermbg=235 guibg=#2F2F2F
 
 " ?
 set exrc
@@ -576,4 +584,12 @@ lua <<EOF
       },
     }
   })
+EOF
+
+lua <<EOF
+require('scrollview').setup({
+  excluded_filetypes = {'nerdtree'},
+  current_only = true,
+  winblend = 0,
+})
 EOF
