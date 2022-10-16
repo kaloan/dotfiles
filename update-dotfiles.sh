@@ -10,3 +10,4 @@ cp ~/.zshrc $DIR/
 cp -r ~/.tmux $DIR/
 cp -r ~/.config/nvim $DIR/.config/
 cp -r ~/.config/ranger $DIR/.config/
+cp -r ~/.config/fish $DIR/.config/
