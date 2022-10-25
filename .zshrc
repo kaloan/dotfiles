@@ -1,3 +1,6 @@
+export EDITOR="nvim"
+export VISUAL="nvim" 
+
 # Use powerline
 USE_POWERLINE="true"
 # Source manjaro-zsh-configuration
@@ -14,6 +17,8 @@ source /usr/share/nvm/init-nvm.sh
 if [[ ! -f $HOME/.config/zsh/.zsh_history ]]; then
   touch $HOME/.config/zsh/.zsh_history 
 fi
+
+# Setup history
 export HISTFILE="$HOME/.config/zsh/.zsh_history" 
 export HISTSIZE=2000
 export SAVEHIST=2000
@@ -39,6 +44,5 @@ alias np='nano -w PKGBUILD'
 alias more=less
 alias nf='nvim $(fzf)'
 #alias cp="cp -i"                          # confirm before overwriting something
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
