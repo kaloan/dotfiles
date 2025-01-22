@@ -1,0 +1,29 @@
+[general]
+live_config_reload = true
+import = [
+    "~/.config/alacritty/themes/themes/gotham.toml"
+    #"~/.config/alacritty/themes/themes/gruvbox_material_hard_dark.toml"
+    #"~/.config/alacritty/themes/themes/kimbie_dark.toml"
+    #"~/.config/alacritty/themes/themes/material_theme_mod.toml"
+    #"~/.config/alacritty/themes/themes/gotham.toml"
+]
+
+[window]
+dynamic_padding = true
+opacity = 0.65
+startup_mode = "Maximized"
+decorations_theme_variant = "Dark"
+
+[scrolling]
+multiplier = 5
+
+[font]
+normal = { family = "Cousine Nerd Font Mono", style = "Regular" }
+size = 15
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+
+[terminal]
+shell = "/bin/fish"
+osc52 = "CopyPaste" # "OnlyCopy"
