@@ -11,7 +11,14 @@
 }:
 
 {
-  imports = [
+  imports =
+  let
+    # Due to NixOS being retarded not not using files that are gitignored
+    # IMPORTANT: Must also run "nixos-rebuild" with the "--impure" option
+    flakeRootPath = "/etc/nixos"; # Full path to directory with flake file. You can symlink the default NixOS configuration directory to the actual one and leave this unchanged.
+    configurationRelativePath = "hosts/nixos"; # Relative path of this file to the path in `flakeRootPath`
+  in
+  [
     inputs.home-manager.nixosModules.default
     ./hardware-configuration.nix
 
@@ -23,13 +30,13 @@
 
     # The following are likely to be host-specific and left best to be kept private
     ./examples/networking.nix
-    "${builtins.getEnv "PWD"}/networking.nix"
+    "${flakeRootPath}/${configurationRelativePath}/networking.nix"
     ./examples/ssh.nix
-    "${builtins.getEnv "PWD"}/ssh.nix"
+    "${flakeRootPath}/${configurationRelativePath}/ssh.nix"
     ./examples/system.nix
-    "${builtins.getEnv "PWD"}/system.nix"
+    "${flakeRootPath}/${configurationRelativePath}/system.nix"
     ./examples/users.nix
-    "${builtins.getEnv "PWD"}/users.nix"
+    "${flakeRootPath}/${configurationRelativePath}/users.nix"
   ];
 
   nix.settings.experimental-features = [
@@ -37,7 +44,7 @@
     "flakes"
   ];
 
-  nix.path = ["nixpkgs=${inputs.nixpkgs}"];
+  # nix.path = ["nixpkgs=${inputs.nixpkgs}"];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
