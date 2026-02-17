@@ -1,0 +1,4 @@
+nixos/hosts/nixos/networking.nix
+nixos/hosts/nixos/ssh.nix
+nixos/hosts/nixos/system.nix
+nixos/hosts/nixos/users.nix
