@@ -23,13 +23,13 @@
 
     # The following are likely to be host-specific and left best to be kept private
     ./examples/networking.nix
-    ./networking.nix
+    "${builtins.getEnv "PWD"}/networking.nix"
     ./examples/ssh.nix
-    ./ssh.nix
+    "${builtins.getEnv "PWD"}/ssh.nix"
     ./examples/system.nix
-    ./system.nix
+    "${builtins.getEnv "PWD"}/system.nix"
     ./examples/users.nix
-    ./users.nix
+    "${builtins.getEnv "PWD"}/users.nix"
   ];
 
   nix.settings.experimental-features = [
