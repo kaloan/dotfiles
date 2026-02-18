@@ -26,6 +26,8 @@
     ../../modules/nixos/boot.nix
     ../../modules/nixos/gaming.nix
     ../../modules/nixos/locale.nix
+    ../../modules/nixos/printing.nix
+    ../../modules/nixos/virtualisation.nix
     ../../modules/nixos/desktop/gnome.nix
 
     # The following are likely to be host-specific and left best to be kept private
@@ -46,15 +48,12 @@
 
   # nix.path = ["nixpkgs=${inputs.nixpkgs}"];
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
-    users = {
+    users = { # Link users to specific personal configuration files.
       "kaloan" = import ./home.nix;
     };
     # By default Home Manager tries to create some config files
@@ -65,7 +64,7 @@
   };
 
   # Install firefox.
-  programs.firefox.enable = true;
+  programs.firefox.enable = true; # Works fine as a backup browser.
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -74,43 +73,49 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     #nvtop
-    alacritty
-    alacritty-theme
+    alacritty # A good fast multiplatform minimalistic terminal. No tab functionality, so consider using tmux.
+    alacritty-theme # Themes for alacritty.
     borgbackup
-    btop
-    clang-tools
-    cmake
-    cpufetch
-    curl
-    fastfetch
-    ffmpeg-full
-    fzf
-    gcc
-    gimp3
-    git
-    imagemagick
-    inkscape
+    btop # A process and resource usage viewer. Use `Escape` for help.
+    clang-tools # Extras for clang.
+    cmake # Tool used for compiling various projects.
+    cpufetch # CPU details
+    curl # Tool for HTTP requests
+    dnsmasq # Required for some networking for virtualisation.
+    fastfetch # General hardware and OS details
+    ffmpeg-full # Converter of video formats. Sometimes required for video file thumbnails.
+    fzf # Fast search
+    gcc # C compiler
+    gimp3 # Image editing tool
+    git # Version control system.
+    imagemagick # Converter of image formats.
+    inkscape # Vector graphics editor.
     jq
-    killall
+    killall # Easy process terminator.
     libgcc
     libnotify
-    libreoffice
-    librewolf
+    libreoffice # Office suite, compatible with the shitty Microsoft formats.
+    librewolf # Firefox-based privacy-oriented browser.
+    # libvirt # Higher level tool for virtual machines.
     lm_sensors
     lua
     lua-language-server
     mpv
-    neovim
-    nixfmt
+    neovim # Good text editor and potential IDE.
+    nixfmt # Nix language server.
     pkg-config
     protonup-ng
-    texliveFull
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    vscodium
-    wget
-    yt-dlp
+    # qemu-kvm # Low level virtual machine manager.
+    texliveFull # All the TeX packages.
+    vim # Terminal text editor. Can be used as a backup if you have managed to trash both your nvim configuration and your DE.
+    virt-manager # Graphical virtual machine manager.
+    vscodium # Free (as in freedom) VSCode alternative.
+    wget # Tool for HTTP requests
+    yt-dlp # Video downloader for many platforms.
   ];
 
+  # Nice shell with autocomplete.
+  # INPORTANT: There are some differences to bash, so scripts may not be run directly and would require a rewrite.
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -121,14 +126,18 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
+  # PGP tool. Can also be useful for verifying checksums.
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  # IMPORTANT: Nerd fonts are required for most of the goodlooking statuslines and shell prompts.
   fonts.packages = with pkgs; [
     nerd-fonts.cousine
     nerd-fonts.sauce-code-pro
   ];
+
 
 }
