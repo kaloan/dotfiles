@@ -13,6 +13,7 @@
 
     firewall = {
       enable = true;
+      trustedInterfaces = [ "virbr0" ]; # Default interface for virtualisation
       # allowedTCPPorts = [ ... ];
       # allowedUDPPorts = [ ... ];
     };

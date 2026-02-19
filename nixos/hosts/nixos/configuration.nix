@@ -3,6 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 # and https://nixos.org/nixos/options.html.
 
+# IMPORTANT: Typical scripts and custom configuration for other distributions may not work on NixOS. One major cause is the difference in installation locations. E.g. '/run/current-system/sw/share' is the typical '/usr/share'. '/run/current-system/sw/bin' is the a mix ofthe typical '/bin' and '/usr/local/bin'. In general the '/run/current-system/' is akin to the typical '/'.
 {
   config,
   pkgs,
@@ -13,8 +14,8 @@
 {
   imports =
   let
-    # Due to NixOS being retarded not not using files that are gitignored
-    # IMPORTANT: Must also run "nixos-rebuild" with the "--impure" option
+    # The following is a hack, since the NixOS build process depends on git and therefore does not use files that are gitignored.
+    # IMPORTANT: Must also run "nixos-rebuild" with the "--impure" option.
     flakeRootPath = "/etc/nixos"; # Full path to directory with flake file. You can symlink the default NixOS configuration directory to the actual one and leave this unchanged.
     configurationRelativePath = "hosts/nixos"; # Relative path of this file to the path in `flakeRootPath`
   in
@@ -46,7 +47,7 @@
     "flakes"
   ];
 
-  # nix.path = ["nixpkgs=${inputs.nixpkgs}"];
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -88,6 +89,7 @@
     gcc # C compiler
     gimp3 # Image editing tool
     git # Version control system.
+    glances # System and ntwork monitor
     imagemagick # Converter of image formats.
     inkscape # Vector graphics editor.
     jq
@@ -96,16 +98,17 @@
     libnotify
     libreoffice # Office suite, compatible with the shitty Microsoft formats.
     librewolf # Firefox-based privacy-oriented browser.
-    # libvirt # Higher level tool for virtual machines.
+    libvirt # Higher level tool for virtual machines.
     lm_sensors
     lua
     lua-language-server
     mpv
     neovim # Good text editor and potential IDE.
-    nixfmt # Nix language server.
+    nixd # Nix language server
+    nixfmt # Nix formatter.
     pkg-config
     protonup-ng
-    # qemu-kvm # Low level virtual machine manager.
+    qemu_kvm # Low level virtual machine manager.
     texliveFull # All the TeX packages.
     vim # Terminal text editor. Can be used as a backup if you have managed to trash both your nvim configuration and your DE.
     virt-manager # Graphical virtual machine manager.
