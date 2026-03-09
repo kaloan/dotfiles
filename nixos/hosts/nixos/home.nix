@@ -4,6 +4,8 @@
   imports = [
     ../../modules/home-manager/alacritty.nix
     ../../modules/home-manager/fish.nix
+
+    ../../modules/home-manager/desktop/dconf.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -17,12 +19,12 @@
   # # home-manager.overwriteBackup = true; # Uncomment if you want to have only 1 backup when using `home-manager.backupFileExtension`
   # # home-manager.backupCommand = ${pkgs.trash-cli}/bin/trash; # Execute ${home-manager.backupCommand} with the file as a CLI argument when a file already exists
 
-  dconf = {
-    enable = true;
-    settings."org/gnome/Console" = {
-      shell = [ "fish" ];
-    };
-  };
+  # dconf = {
+  #   enable = true;
+  #   settings."org/gnome/Console" = {
+  #     shell = [ "fish" ];
+  #   };
+  # };
 
   xdg.desktopEntries.librewolf = {
     name = "LibreWolf";
@@ -33,6 +35,8 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
+      "audio" = "mpv.desktop";
+      "video" = ["mpv.desktop" "vlc.desktop"];
       "text/plain" = "vscodium";
       "text/html" = "librewolf.desktop";
       "x-scheme-handler/http" = "librewolf.desktop";

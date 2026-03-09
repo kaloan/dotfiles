@@ -90,28 +90,33 @@
     gimp3 # Image editing tool
     git # Version control system.
     glances # System and ntwork monitor
+    gnuplot # Simple data plotter
+    husky # Nodejs package for tracked git hooks
     imagemagick # Converter of image formats.
     inkscape # Vector graphics editor.
-    jq
+    jq # CLI JSON processing
     killall # Easy process terminator.
     libgcc
     libnotify
     libreoffice # Office suite, compatible with the shitty Microsoft formats.
     librewolf # Firefox-based privacy-oriented browser.
     libvirt # Higher level tool for virtual machines.
-    lm_sensors
-    lua
-    lua-language-server
-    mpv
+    lm_sensors # Hardware sensor physical state (temperature, voltage) monitor
+    lua # Scripting language
+    lua-language-server # Language server for Lua
+    mpv # Minimalistic video player
     neovim # Good text editor and potential IDE.
     nixd # Nix language server
     nixfmt # Nix formatter.
-    pkg-config
-    protonup-ng
+    nodejs_24 # JS runtime
+    obs-studio # Video recording and live streaming
+    pkg-config # Helps with manual compilation and package/library path linking
+    protonup-ng # Version manager for Proton-GE, which is a slightly enchanced fork of Proton
     qemu_kvm # Low level virtual machine manager.
     texliveFull # All the TeX packages.
     vim # Terminal text editor. Can be used as a backup if you have managed to trash both your nvim configuration and your DE.
     virt-manager # Graphical virtual machine manager.
+    vlc # Video player and downloader
     vscodium # Free (as in freedom) VSCode alternative.
     wget # Tool for HTTP requests
     yt-dlp # Video downloader for many platforms.
