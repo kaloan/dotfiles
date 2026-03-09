@@ -1,9 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
     ../../modules/home-manager/alacritty.nix
     ../../modules/home-manager/fish.nix
+    ../../modules/home-manager/obs.nix
 
     ../../modules/home-manager/desktop/dconf.nix
   ];

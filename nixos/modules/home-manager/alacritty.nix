@@ -1,7 +1,11 @@
-{config, pkgs, ...}:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 {
-programs.alacritty = {
+  programs.alacritty = {
     enable = true;
     theme = "gotham";
     settings = {
