@@ -1,11 +1,13 @@
 {
   config,
   pkgs,
+  inputs,
+  lib,
   ...
 }:
 
 {
-  programs.alacritty = {
+  programs.alacritty = lib.mkForce {
     enable = true;
     theme = "gotham";
     settings = {
@@ -32,7 +34,7 @@
       terminal = {
         shell = "/run/current-system/sw/bin/fish"; # For NixOS
         # shell = "/bin/fish"; # For standard distributions
-        # osc52 = "CopyPaste"; # "OnlyCopy"
+        osc52 = "CopyPaste"; # "OnlyCopy"
       };
     };
   };

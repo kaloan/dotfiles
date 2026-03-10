@@ -85,6 +85,8 @@
     dnsmasq # Required for some networking for virtualisation.
     fastfetch # General hardware and OS details
     ffmpeg-full # Converter of video formats. Sometimes required for video file thumbnails.
+    ffmpeg-headless # Decodes videos to pass to ffmpegthumbnailer
+    ffmpegthumbnailer # Generates thumbnails for videos
     fzf # Fast search
     gcc # C compiler
     gimp3 # Image editing tool
@@ -106,6 +108,7 @@
     lua-language-server # Language server for Lua
     mpv # Minimalistic video player
     neovim # Good text editor and potential IDE.
+    nemo-with-extensions # Good file manager
     nixd # Nix language server
     nixfmt # Nix formatter.
     nodejs_24 # JS runtime
@@ -147,5 +150,10 @@
     nerd-fonts.sauce-code-pro
   ];
 
-
+  stylix = {
+    enable = true;
+    autoEnable = true;
+    polarity = "dark"; # Dark/light theme
+    image = (./../.. + (builtins.unsafeDiscardStringContext "/modules/home-manager/desktop/wallpapers/wallpaper.jpg")); # Wallpaper
+  };
 }

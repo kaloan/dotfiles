@@ -11,6 +11,7 @@
     ../../modules/home-manager/obs.nix
 
     ../../modules/home-manager/desktop/dconf.nix
+    # ../../modules/home-manager/desktop/stylix.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -36,18 +37,26 @@
     exec = "${pkgs.librewolf}/bin/librewolf --private-window";
   };
 
+  xdg.desktopEntries.nemo = {
+    name = "Nemo";
+    exec = "${pkgs.nemo-with-extensions}/bin/nemo";
+  };
+
   xdg.configFile."mimeapps.list".force = true; # To rewrite the mime ~/.config/mimeapps.list file with the provided list bellow
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "audio" = "mpv.desktop";
-      "video" = ["mpv.desktop" "vlc.desktop"];
-      "text/plain" = "vscodium";
+      "audio/*" = "mpv.desktop";
+      "video/*" = ["mpv.desktop" "vlc.desktop"];
+      "video/mp4" = ["mpv.desktop" "vlc.desktop"];
       "text/html" = "librewolf.desktop";
+      "text/*" = "codium.desktop";
       "x-scheme-handler/http" = "librewolf.desktop";
       "x-scheme-handler/https" = "librewolf.desktop";
       "x-scheme-handler/about" = "librewolf.desktop";
       "x-scheme-handler/unknown" = "librewolf.desktop";
+      "inode/directory" = [ "nemo.desktop" ];
+      "application/x-gnome-saved-search" = [ "nemo.desktop" ];
     };
   };
 
@@ -106,6 +115,11 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    # Used to have an "open in terminal" action for the Nemo file manager
+    ".gnome2/accels/nemo".text = ''
+    (gtk_accel_path "<Actions>/DirViewActions/OpenInTerminal" "F4")
+    '';
   };
 
   programs.tmux = {
@@ -136,4 +150,14 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # home-manager.sharedModules = [
+  #   {
+  #     stylix.targets.xyz.enable = false;
+  #   }
+  # ];
+
+  # home-manager.users.kaloan = {
+  #   stylix.targets.xyz.enable = false;
+  # };
 }

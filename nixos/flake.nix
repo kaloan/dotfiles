@@ -9,12 +9,20 @@
 
   inputs =
   {
+    # Sets the nix package version
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-${version}";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
+    # Integrated Homemanager
     home-manager = {
       # url = "github:nix-community/home-manager/release-${version}";
       url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # A theming framework
+    stylix = {
+      url = "github:nix-community/stylix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -35,7 +43,7 @@
   #   };
 
   # Generalized version of above commented code if you will use multiple host configurations with this "default" structure
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, stylix, ... }@inputs:
     {
       nixosConfigurations = builtins.foldl'
         (configs: host: {
@@ -44,6 +52,7 @@
             modules = [
               (./. + (builtins.unsafeDiscardStringContext "/hosts/${host}/configuration.nix"))
               inputs.home-manager.nixosModules.default
+              stylix.nixosModules.stylix
             ];
           };
         } // configs)
