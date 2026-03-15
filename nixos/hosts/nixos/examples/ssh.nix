@@ -2,11 +2,12 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
 {
-  services.openssh = {
+  services.openssh = lib.mkDefault {
     enable = true;
   };
 }

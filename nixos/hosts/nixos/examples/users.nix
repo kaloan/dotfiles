@@ -2,12 +2,13 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kaloan = {
+  users.users.kaloan = lib.mkDefault {
     isNormalUser = true;
     description = "kaloan";
     extraGroups = [

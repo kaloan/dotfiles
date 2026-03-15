@@ -12,6 +12,7 @@
     # Sets the nix package version
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-${version}";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Integrated Homemanager
     home-manager = {
@@ -43,15 +44,28 @@
   #   };
 
   # Generalized version of above commented code if you will use multiple host configurations with this "default" structure
-  outputs = { self, nixpkgs, stylix, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, stylix, ... }@inputs:
+  let
+    system = "x86_64-linux";
+    unstable = import nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
+  in
     {
       nixosConfigurations = builtins.foldl'
         (configs: host: {
           "${host}" = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
             modules = [
+              {
+                _module.args = { inherit unstable; };
+              }
               (./. + (builtins.unsafeDiscardStringContext "/hosts/${host}/configuration.nix"))
               inputs.home-manager.nixosModules.default
+              {
+                home-manager.extraSpecialArgs = { inherit unstable; };
+              }
               stylix.nixosModules.stylix
             ];
           };

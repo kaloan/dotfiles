@@ -8,6 +8,7 @@
   config,
   pkgs,
   inputs,
+  unstable,
   ...
 }:
 
@@ -67,63 +68,79 @@
   # Install firefox.
   programs.firefox.enable = true; # Works fine as a backup browser.
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config = {
+  #   # Allow unfree packages
+  #   allowUnfree = true;
+  #   packageOverrides = pkgs: {
+  #     unstable = import <unstable> {
+  #       config = config.nixpkgs.config;
+  #     };
+  #   };
+  # };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #nvtop
-    alacritty # A good fast multiplatform minimalistic terminal. No tab functionality, so consider using tmux.
-    alacritty-theme # Themes for alacritty.
-    borgbackup
-    btop # A process and resource usage viewer. Use `Escape` for help.
-    clang-tools # Extras for clang.
-    cmake # Tool used for compiling various projects.
-    cpufetch # CPU details
-    curl # Tool for HTTP requests
-    dnsmasq # Required for some networking for virtualisation.
-    fastfetch # General hardware and OS details
-    ffmpeg-full # Converter of video formats. Sometimes required for video file thumbnails.
-    ffmpeg-headless # Decodes videos to pass to ffmpegthumbnailer
-    ffmpegthumbnailer # Generates thumbnails for videos
-    fzf # Fast search
-    gcc # C compiler
-    gimp3 # Image editing tool
-    git # Version control system.
-    glances # System and ntwork monitor
-    gnuplot # Simple data plotter
-    husky # Nodejs package for tracked git hooks
-    imagemagick # Converter of image formats.
-    inkscape # Vector graphics editor.
-    jq # CLI JSON processing
-    killall # Easy process terminator.
-    libgcc
-    libnotify
-    libreoffice # Office suite, compatible with the shitty Microsoft formats.
-    librewolf # Firefox-based privacy-oriented browser.
-    libvirt # Higher level tool for virtual machines.
-    lm_sensors # Hardware sensor physical state (temperature, voltage) monitor
-    lua # Scripting language
-    lua-language-server # Language server for Lua
-    mpv # Minimalistic video player
-    neovim # Good text editor and potential IDE.
-    nemo-with-extensions # Good file manager
-    nixd # Nix language server
-    nixfmt # Nix formatter.
-    nodejs_24 # JS runtime
-    obs-studio # Video recording and live streaming
-    pkg-config # Helps with manual compilation and package/library path linking
-    protonup-ng # Version manager for Proton-GE, which is a slightly enchanced fork of Proton
-    qemu_kvm # Low level virtual machine manager.
-    texliveFull # All the TeX packages.
-    vim # Terminal text editor. Can be used as a backup if you have managed to trash both your nvim configuration and your DE.
-    virt-manager # Graphical virtual machine manager.
-    vlc # Video player and downloader
-    vscodium # Free (as in freedom) VSCode alternative.
-    wget # Tool for HTTP requests
-    yt-dlp # Video downloader for many platforms.
-  ];
+  environment.systemPackages =
+    let
+      stablePackages = with pkgs; [
+      #nvtop
+      alacritty # A good fast multiplatform minimalistic terminal. No tab functionality, so consider using tmux.
+      alacritty-theme # Themes for alacritty.
+      borgbackup
+      btop # A process and resource usage viewer. Use `Escape` for help.
+      clang-tools # Extras for clang.
+      cmake # Tool used for compiling various projects.
+      cpufetch # CPU details
+      curl # Tool for HTTP requests
+      dnsmasq # Required for some networking for virtualisation.
+      fastfetch # General hardware and OS details
+      ffmpeg-full # Converter of video formats. Sometimes required for video file thumbnails.
+      ffmpeg-headless # Decodes videos to pass to ffmpegthumbnailer
+      ffmpegthumbnailer # Generates thumbnails for videos
+      fzf # Fast search
+      gcc # C compiler
+      gimp3 # Image editing tool
+      git # Version control system.
+      glances # System and ntwork monitor
+      gnuplot # Simple data plotter
+      husky # Nodejs package for tracked git hooks
+      imagemagick # Converter of image formats.
+      inkscape # Vector graphics editor.
+      jq # CLI JSON processing
+      killall # Easy process terminator.
+      libgcc
+      libnotify
+      libreoffice # Office suite, compatible with the shitty Microsoft formats.
+      librewolf # Firefox-based privacy-oriented browser.
+      libvirt # Higher level tool for virtual machines.
+      lm_sensors # Hardware sensor physical state (temperature, voltage) monitor
+      lua # Scripting language
+      lua-language-server # Language server for Lua
+      mpv # Minimalistic video player
+      neovim # Good text editor and potential IDE.
+      nemo-with-extensions # Good file manager
+      nixd # Nix language server
+      nixfmt # Nix formatter.
+      nodejs_24 # JS runtime
+      obs-studio # Video recording and live streaming
+      pkg-config # Helps with manual compilation and package/library path linking
+      protonup-ng # Version manager for Proton-GE, which is a slightly enchanced fork of Proton
+      qemu_kvm # Low level virtual machine manager.
+      texliveFull # All the TeX packages.
+      vim # Terminal text editor. Can be used as a backup if you have managed to trash both your nvim configuration and your DE.
+      virt-manager # Graphical virtual machine manager.
+      vlc # Video player and downloader
+      vscodium # Free (as in freedom) VSCode alternative.
+      wget # Tool for HTTP requests
+      # unstable.yt-dlp # Video downloader for many platforms.
+      microcode-amd
+    ];
+    unstablePackages = with unstable.pkgs; [
+      yt-dlp # Video downloader for many platforms.
+    ];
+  in
+  stablePackages ++ unstablePackages ;
 
   # Nice shell with autocomplete.
   # INPORTANT: There are some differences to bash, so scripts may not be run directly and would require a rewrite.

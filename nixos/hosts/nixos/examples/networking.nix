@@ -7,7 +7,7 @@
 }:
 
 {
-  networking = {
+  networking = lib.mkDefault {
     networkmanager = {
       enable = true; # Enables networking
       plugins = with pkgs; [
