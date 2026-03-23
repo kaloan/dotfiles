@@ -117,6 +117,7 @@
       lm_sensors # Hardware sensor physical state (temperature, voltage) monitor
       lua # Scripting language
       lua-language-server # Language server for Lua
+      microcode-amd
       mpv # Minimalistic video player
       neovim # Good text editor and potential IDE.
       nemo-with-extensions # Good file manager
@@ -127,6 +128,7 @@
       pkg-config # Helps with manual compilation and package/library path linking
       protonup-ng # Version manager for Proton-GE, which is a slightly enchanced fork of Proton
       qemu_kvm # Low level virtual machine manager.
+      qimgv # Qt image viewer
       texliveFull # All the TeX packages.
       vim # Terminal text editor. Can be used as a backup if you have managed to trash both your nvim configuration and your DE.
       virt-manager # Graphical virtual machine manager.
@@ -134,7 +136,6 @@
       vscodium # Free (as in freedom) VSCode alternative.
       wget # Tool for HTTP requests
       # unstable.yt-dlp # Video downloader for many platforms.
-      microcode-amd
     ];
     unstablePackages = with unstable.pkgs; [
       yt-dlp # Video downloader for many platforms.
@@ -168,8 +169,8 @@
   ];
 
   stylix = {
-    enable = true;
-    autoEnable = true;
+    enable = true; # Enable stylix
+    autoEnable = true; # Enable stylix color setting for all installed targets
     polarity = "dark"; # Dark/light theme
     image = (./../.. + (builtins.unsafeDiscardStringContext "/modules/home-manager/desktop/wallpapers/wallpaper.jpg")); # Wallpaper
   };

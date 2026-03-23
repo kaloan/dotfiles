@@ -9,6 +9,7 @@
     ../../modules/home-manager/alacritty.nix
     ../../modules/home-manager/fish.nix
     ../../modules/home-manager/obs.nix
+    ../../modules/home-manager/vscodium.nix
 
     ../../modules/home-manager/desktop/dconf.nix
     # ../../modules/home-manager/desktop/stylix.nix
@@ -35,11 +36,13 @@
   xdg.desktopEntries.librewolf = {
     name = "LibreWolf";
     exec = "${pkgs.librewolf}/bin/librewolf --private-window";
+    icon = "librewolf";
   };
 
   xdg.desktopEntries.nemo = {
     name = "Nemo";
     exec = "${pkgs.nemo-with-extensions}/bin/nemo";
+    icon = "system-file-manager-symbolic"; # "nemo"
   };
 
   xdg.configFile."mimeapps.list".force = true; # To rewrite the mime ~/.config/mimeapps.list file with the provided list bellow
@@ -91,16 +94,6 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
-
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscodium;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      # dracula-theme.theme-dracula
-      # vscodevim.vim
-      # yzhang.markdown-all-in-one
-    ];
-  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

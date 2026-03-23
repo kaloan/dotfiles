@@ -73,4 +73,16 @@
       };
     };
   };
+
+   # GTK theming settings
+  gtk = {
+    enable = true;
+    # IMPORTANT!: Manually setting the icon themes is necessary if using Stylix as some icons may be missing
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+      # package = pkgs.kdePackages.breeze-icons;
+      # name = "Breeze-Dark";
+    };
+  };
 }
