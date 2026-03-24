@@ -7,10 +7,12 @@
 
 {
   stylix = {
-    enable = true;
-    image = (./. + (builtins.unsafeDiscardStringContext "/wallpapers/wallpaper.jpg")); # "./wallpapers/wallpaper.jpg"; # Wallpaper
+    enable = true; # Enable stylix
+    autoEnable = true; # Enable stylix color setting for all installed targets
+    image = (
+      ./../.. + (builtins.unsafeDiscardStringContext "/home-manager/desktop/wallpapers/wallpaper.jpg")
+    ); # "./wallpapers/wallpaper.jpg"; # Wallpaper
     polarity = "dark"; # Dark/light theme
-    # image = (./. + (builtins.unsafeDiscardStringContext "/modules/home-manager/desktop/wallpapers/wallpaper.jpg")); # "./wallpapers/wallpaper.jpg"; # Wallpaper
     imageScalingMode = "fill";
     base16Scheme = {
       base00 = "141c29";
@@ -32,15 +34,15 @@
     };
     opacity = {
       applications = 1.0;
-      desktop = 0.9;
-      popups = 0.75;
+      desktop = 1.0;
+      popups = 1.0;
       terminal = 0.65;
     };
     fonts = {
       sizes = {
         applications = 14;
-        desktop = 16;
-        popups = 18;
+        desktop = 10;
+        popups = 10;
         terminal = 15;
       };
       monospace = {
@@ -48,12 +50,12 @@
         package = pkgs.nerd-fonts.cousine; # pkgs.nerd-fonts.sauce-code-pro
       };
       serif = {
-        name = "Caladea Regular";
-        package = pkgs.caladea; # pkgs.times-newer-roman
+        name = "DejaVu Serif"; # "Caladea"
+        package = pkgs.dejavu_fonts; # pkgs.caladea pkgs.times-newer-roman
       };
       sansSerif = {
-        name = "Source Sans 3 Regular";
-        package = pkgs.source-sans; # pkgs.carlito
+        name = "DejaVu Sans"; # "Source Sans 3"
+        package = pkgs.dejavu_fonts; # pkgs.source-sans pkgs.carlito
       };
       emoji = {
         package = pkgs.unicode-emoji;
@@ -62,7 +64,7 @@
     cursor = {
       name = "Afterglow-Recolored-Catppuccin-Macchiato";
       package = pkgs.afterglow-cursors-recolored;
-      size = 15;
+      size = 16;
     };
   };
 }

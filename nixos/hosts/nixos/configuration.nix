@@ -31,6 +31,7 @@
     ../../modules/nixos/printing.nix
     ../../modules/nixos/virtualisation.nix
     ../../modules/nixos/desktop/gnome.nix
+    ../../modules/nixos/desktop/stylix.nix
 
     # The following are likely to be host-specific and left best to be kept private
     ./examples/networking.nix
@@ -139,6 +140,7 @@
     ];
     unstablePackages = with unstable.pkgs; [
       yt-dlp # Video downloader for many platforms.
+      zotero # Bibliography/reference manager
     ];
   in
   stablePackages ++ unstablePackages ;
@@ -164,14 +166,9 @@
 
   # IMPORTANT: Nerd fonts are required for most of the goodlooking statuslines and shell prompts.
   fonts.packages = with pkgs; [
+    dejavu_fonts
     nerd-fonts.cousine
     nerd-fonts.sauce-code-pro
+    unicode-emoji
   ];
-
-  stylix = {
-    enable = true; # Enable stylix
-    autoEnable = true; # Enable stylix color setting for all installed targets
-    polarity = "dark"; # Dark/light theme
-    image = (./../.. + (builtins.unsafeDiscardStringContext "/modules/home-manager/desktop/wallpapers/wallpaper.jpg")); # Wallpaper
-  };
 }
