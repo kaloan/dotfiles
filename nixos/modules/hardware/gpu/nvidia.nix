@@ -6,7 +6,6 @@
 }:
 
 {
-  # Video drivers
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   nixpkgs.config.allowUnfree = true; # Allows using nvidia's proprietary drivers

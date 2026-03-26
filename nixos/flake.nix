@@ -26,6 +26,9 @@
       url = "github:nix-community/stylix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Mouse acceleration control
+    maccel.url = "github:Gnarus-G/maccel";
   };
 
   # Use this type of syntax if hosts differ in modules or require extra configuration

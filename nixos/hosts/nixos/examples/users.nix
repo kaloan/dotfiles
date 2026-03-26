@@ -16,6 +16,7 @@
       "wheel" # A short form of the phrase "big wheel". Allows running switching user to root and running sudo.
       "kvm" # Allows running of KVMs.
       "libvirtd" # Allows running libvirt.
+      "maccel" # Allows using maccel to control mouse acceleration without requiring administrator priviledges.
     ];
     packages = with pkgs; [
       #  thunderbird

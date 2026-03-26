@@ -14,5 +14,9 @@
     ../../modules/hardware/cpu/amd.nix
     ../../modules/hardware/gpu/nvidia.nix
     ../../modules/hardware/fileSystems.nix
+
+    ../../modules/hardware/mouse-acceleration.nix
   ];
+
+  services.lact.enable = true;
 }
