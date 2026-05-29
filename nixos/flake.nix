@@ -7,8 +7,7 @@
 {
   description = "Nixos config flake";
 
-  inputs =
-  {
+  inputs = {
     # Sets the nix package version
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-${version}";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
@@ -47,17 +46,25 @@
   #   };
 
   # Generalized version of above commented code if you will use multiple host configurations with this "default" structure
-  outputs = { self, nixpkgs, nixpkgs-unstable, stylix, ... }@inputs:
-  let
-    system = "x86_64-linux";
-    unstable = import nixpkgs-unstable {
-      inherit system;
-      config.allowUnfree = true;
-    };
-  in
+  outputs =
     {
-      nixosConfigurations = builtins.foldl'
-        (configs: host: {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      stylix,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    in
+    {
+      nixosConfigurations = builtins.foldl' (
+        configs: host:
+        {
           "${host}" = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
             modules = [
@@ -72,8 +79,8 @@
               stylix.nixosModules.stylix
             ];
           };
-        } // configs)
-        {}
-        [ "nixos" ]; # List of your host names
+        }
+        // configs
+      ) { } [ "nixos" ]; # List of your host names
     };
 }

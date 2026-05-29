@@ -50,8 +50,14 @@
     enable = true;
     defaultApplications = {
       "audio/*" = "mpv.desktop";
-      "video/*" = ["mpv.desktop" "vlc.desktop"];
-      "video/mp4" = ["mpv.desktop" "vlc.desktop"];
+      "video/*" = [
+        "mpv.desktop"
+        "vlc.desktop"
+      ];
+      "video/mp4" = [
+        "mpv.desktop"
+        "vlc.desktop"
+      ];
       "text/html" = "librewolf.desktop";
       "text/*" = "codium.desktop";
       "x-scheme-handler/http" = "librewolf.desktop";
@@ -111,7 +117,7 @@
 
     # Used to have an "open in terminal" action for the Nemo file manager
     ".gnome2/accels/nemo".text = ''
-    (gtk_accel_path "<Actions>/DirViewActions/OpenInTerminal" "F4")
+      (gtk_accel_path "<Actions>/DirViewActions/OpenInTerminal" "F4")
     '';
   };
 

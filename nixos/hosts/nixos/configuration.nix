@@ -86,6 +86,7 @@
     #nvtop
     alacritty # A good fast multiplatform minimalistic terminal. No tab functionality, so consider using tmux.
     alacritty-theme # Themes for alacritty.
+    bat # Better `cat`
     borgbackup
     btop # A process and resource usage viewer. Use `Escape` for help.
     clang-tools # Extras for clang.
@@ -107,6 +108,7 @@
     imagemagick # Converter of image formats.
     inkscape # Vector graphics editor.
     jq # CLI JSON processing
+    kdePackages.kdenlive # Video editing tool
     killall # Easy process terminator.
     lact # Graphics card info and overclocking
     libgcc
@@ -125,12 +127,16 @@
     nixfmt # Nix formatter.
     nodejs_24 # JS runtime
     obs-studio # Video recording and live streaming
+    pdfarranger # Quick and simple PDF editing tool
     pkg-config # Helps with manual compilation and package/library path linking
     protonup-ng # Version manager for Proton-GE, which is a slightly enchanced fork of Proton
     qemu_kvm # Low level virtual machine manager.
     qimgv # Qt image viewer
     texliveFull # All the TeX packages.
-    tex-fmt
+    tex-fmt # LaTeX formatter
+    tldr # Additional man pages with examples
+    trash-cli # CLI tool to send to trash instead of permanently deleting
+    unstable.thorium-reader # EPUB reader
     vim # Terminal text editor. Can be used as a backup if you have managed to trash both your nvim configuration and your DE.
     virt-manager # Graphical virtual machine manager.
     vlc # Video player and downloader

@@ -44,6 +44,7 @@
           pkgs.gnomeExtensions.simpleweather.extensionUuid
           pkgs.gnomeExtensions.places-status-indicator.extensionUuid
           pkgs.gnomeExtensions.removable-drive-menu.extensionUuid
+          pkgs.gnomeExtensions.caffeine.extensionUuid
 
           # Alternatively, you can manually pass UUID as a string.
           # "blur-my-shell@aunetx"
