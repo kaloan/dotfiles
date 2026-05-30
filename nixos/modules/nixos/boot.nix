@@ -23,6 +23,6 @@
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
-    kernelPackages = pkgs.linuxPackages_6_18; # Define specific linux kernel version as <major>_<minor> or pkgs.linuxPackages_latest for the latest one
+    kernelPackages = pkgs.linuxPackages_7_0; # Define specific linux kernel version as <major>_<minor> or pkgs.linuxPackages_latest for the latest one
   };
 }
