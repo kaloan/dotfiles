@@ -36,7 +36,11 @@
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # For newer GPUs, you can just use the newest stable driver
+    # package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    # Optionally, you may need to select the appropriate legacy driver version for your specific GPU, which you can find at:
+    # https://www.nvidia.com/en-us/drivers/
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   };
 }

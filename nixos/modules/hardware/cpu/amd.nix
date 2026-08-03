@@ -19,4 +19,8 @@
 
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    microcode-amd
+  ];
 }

@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
@@ -66,5 +67,10 @@
       package = pkgs.afterglow-cursors-recolored;
       size = 16;
     };
+
+    targets.qt.platform = lib.mkForce "qtct";
+
+    # targets.gtk.enable =true;
+    # targets.gtk.flatpakSupport.enable = true;
   };
 }

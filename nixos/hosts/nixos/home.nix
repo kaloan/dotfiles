@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
 
@@ -8,11 +9,12 @@
   imports = [
     ../../modules/home-manager/alacritty.nix
     ../../modules/home-manager/fish.nix
+    ../../modules/home-manager/librewolf.nix
     ../../modules/home-manager/obs.nix
     ../../modules/home-manager/vscodium.nix
 
     ../../modules/home-manager/desktop/dconf.nix
-    # ../../modules/home-manager/desktop/stylix.nix
+    ../../modules/home-manager/desktop/stylix.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -49,8 +51,15 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "audio/*" = "mpv.desktop";
+      "audio/*" = [
+        "mpv.desktop"
+        "vlc.desktop"
+      ];
       "video/*" = [
+        "mpv.desktop"
+        "vlc.desktop"
+      ];
+      "audio/mp4" = [
         "mpv.desktop"
         "vlc.desktop"
       ];
@@ -59,13 +68,43 @@
         "vlc.desktop"
       ];
       "text/html" = "librewolf.desktop";
-      "text/*" = "codium.desktop";
+      "text/txt" = [
+        "codium.desktop"
+        "gnome-text-editor.desktop"
+      ];
+      "application/pdf" = "papers.desktop";
       "x-scheme-handler/http" = "librewolf.desktop";
       "x-scheme-handler/https" = "librewolf.desktop";
       "x-scheme-handler/about" = "librewolf.desktop";
       "x-scheme-handler/unknown" = "librewolf.desktop";
-      "inode/directory" = [ "nemo.desktop" ];
-      "application/x-gnome-saved-search" = [ "nemo.desktop" ];
+      "inode/directory" = [
+        "nemo.desktop"
+        "nautilus.desktop"
+        "dolphin.desktop"
+        "krusader.desktop"
+      ];
+      "application/x-gnome-saved-search" = [
+        "nemo.desktop"
+        "nautilus.desktop"
+        "dolphin.desktop"
+        "krusader.desktop"
+      ];
+    };
+    associations.added = {
+      "inode/directory" = [
+        "nemo.desktop"
+        "codium.desktop"
+        "alacritty.desktop"
+        "baobab.desktop"
+      ];
+      "audio/mp4" = [
+        "mpv.desktop"
+        "vlc.desktop"
+      ];
+      "video/mp4" = [
+        "mpv.desktop"
+        "vlc.desktop"
+      ];
     };
   };
 
@@ -78,14 +117,19 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "25.11"; # Please read the comment before changing.
+  home.stateVersion = "26.05"; # Please read the comment before changing.
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    pkgs.hello
+    pkgs.gnomeExtensions.simpleweather
+    pkgs.gnomeExtensions.places-status-indicator
+    pkgs.gnomeExtensions.removable-drive-menu
+    pkgs.gnomeExtensions.caffeine
+    pkgs.gnomeExtensions.clipboard-indicator
+    pkgs.gnomeExtensions.system-monitor
+    pkgs.gnomeExtensions.systemd-manager
+    pkgs.gnomeExtensions.tor
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -159,4 +203,6 @@
   # home-manager.users.kaloan = {
   #   stylix.targets.xyz.enable = false;
   # };
+
+  qt.platformTheme.name = lib.mkForce "adwaita"; #"qtct"
 }

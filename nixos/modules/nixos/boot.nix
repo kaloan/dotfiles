@@ -22,7 +22,7 @@
       efi.canTouchEfiVariables = true;
     };
     kernelModules = [ "kvm-amd" ];
-    extraModulePackages = [ ];
-    kernelPackages = pkgs.linuxPackages_7_0; # Define specific linux kernel version as <major>_<minor> or pkgs.linuxPackages_latest for the latest one
+    extraModulePackages = [ config.boot.kernelPackages.nvidiaPackages.legacy_580 ];
+    kernelPackages = pkgs.linuxPackages_7_1; # Define specific linux kernel version as <major>_<minor> or pkgs.linuxPackages_latest for the latest one
   };
 }

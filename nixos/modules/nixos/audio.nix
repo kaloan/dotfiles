@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
@@ -12,7 +13,7 @@
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alsa.support32Bit = true;
+    alsa.support32Bit = true; # As of 26.05, there are some problems with openblas running xzcblat2, which stalls the build, so Keep this false
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;

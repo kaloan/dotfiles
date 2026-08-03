@@ -11,52 +11,39 @@
     settings = {
       "org/gnome/shell" = {
         # disable-user-extensions = true; # Optionally disable user extensions entirely
+
         # You can find information about the extensions at https://extensions.gnome.org/
-        # enabled-extensions = builtins.concatLists
-        # [
-        #   (builtins.map
-        #     # Put UUIDs of extensions that you want to enable here.
-        #     # If the extension you want to enable is packaged in nixpkgs,
-        #     # you can easily get its UUID by accessing its extensionUuid
-        #     # field (look at the following example).
-        #     (extension-name: pkgs.gnomeExtensions.${extension-name}.extensionUuid)
-        #     [
-        #       "extension-list"
-        #       "places-status-indicator"
-        #       "removable-drive-menu"
-        #       "simpleweather"
-        #       "system-monitor"
-        #     ]
-        #   )
-
-        #   [
-        #     # Alternatively, you can manually pass UUID as a string.
-        #     # "blur-my-shell@aunetx"
-        #     # ...
-        #   ]
-        # ];
-        enabled-extensions = [
-          # Put UUIDs of extensions that you want to enable here.
-          # If the extension you want to enable is packaged in nixpkgs,
-          # you can easily get its UUID by accessing its extensionUuid
-          # field (look at the following example).
-          pkgs.gnomeExtensions.extension-list.extensionUuid
-          pkgs.gnomeExtensions.simpleweather.extensionUuid
-          pkgs.gnomeExtensions.places-status-indicator.extensionUuid
-          pkgs.gnomeExtensions.removable-drive-menu.extensionUuid
-          pkgs.gnomeExtensions.caffeine.extensionUuid
-
+        enabled-extensions = (map (ext: ext.extensionUuid) (with pkgs.gnomeExtensions; [
+          # Put the extensions from nixpkgs that you want to enable here.
+          simpleweather
+          places-status-indicator
+          removable-drive-menu
+          caffeine
+          clipboard-indicator
+          system-monitor
+          systemd-manager
+          tor
+        ])) ++ [
           # Alternatively, you can manually pass UUID as a string.
           # "blur-my-shell@aunetx"
           # ...
         ];
+
       };
 
       # Configure individual extensions
-      # "org/gnome/shell/extensions/blur-my-shell" = {
-      #   brightness = 0.75;
-      #   noise-amount = 0;
-      # };
+      "org/gnome/shell/extensions/caffeine" = {
+        app-trigger-mode = 1;
+        enable-fullscreen = false;
+        show-notifications = false;
+      };
+
+      "org/gnome/shell/extensions/system-monitor" = {
+        show-swap = false;
+        show-upload = false;
+        show-download = false;
+      };
+
       "org/gnome/Console" = {
         shell = [ "fish" ];
       };
@@ -75,7 +62,7 @@
     };
   };
 
-   # GTK theming settings
+  # GTK theming settings
   gtk = {
     enable = true;
     # IMPORTANT!: Manually setting the icon themes is necessary if using Stylix as some icons may be missing

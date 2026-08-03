@@ -94,19 +94,36 @@
     cpufetch # CPU details
     curl # Tool for HTTP requests
     dnsmasq # Required for some networking for virtualisation.
+    eza # Better ls
     fastfetch # General hardware and OS details
     ffmpeg-full # Converter of video formats. Sometimes required for video file thumbnails.
     ffmpeg-headless # Decodes videos to pass to ffmpegthumbnailer
     ffmpegthumbnailer # Generates thumbnails for videos
+    freecad # FOSS CAD
     fzf # Fast search
     gcc # C compiler
+    ghostscript # Used for creating PDFs
     gimp3 # Image editing tool
     git # Version control system.
     glances # System and ntwork monitor
     gnuplot # Simple data plotter
+    hunspell # Spell checker
+    hunspellDicts.en_GB-large # British English dictionary
+    hunspellDicts.en_US # American English dictionary
+    # hunspell.withDicts {
+    #   dicts = [ hunspellDicts.en_US hunspellDicts.en_GB-lage];
+    #   hyphenDicts = [ hyphenDicts.en_US hyphenDicts.en_GB ];
+    # }. # Spell checker
+    # hunspellDicts.en_GB-large # British English
+    # hunspellDicts.en_US # British English dictionary
+    # hunspell-dict-en-us-wordlist
+    # hunspell-dict-en-gb-large-wordlist
+    hyphenDicts.en_GB  # British English hyphen dictionary
+    hyphenDicts.en_US  # Anerucab English hyphen dictionary
     husky # Nodejs package for tracked git hooks
     imagemagick # Converter of image formats.
     inkscape # Vector graphics editor.
+    josm # OSM editor
     jq # CLI JSON processing
     kdePackages.kdenlive # Video editing tool
     killall # Easy process terminator.
@@ -119,31 +136,37 @@
     lm_sensors # Hardware sensor physical state (temperature, voltage) monitor
     lua # Scripting language
     lua-language-server # Language server for Lua
-    microcode-amd
     mpv # Minimalistic video player
     neovim # Good text editor and potential IDE.
     nemo-with-extensions # Good file manager
     nixd # Nix language server
     nixfmt # Nix formatter.
     nodejs_24 # JS runtime
+    nmap# Scan LAN network
     obs-studio # Video recording and live streaming
+    octaveFull # Scientific computing
     pdfarranger # Quick and simple PDF editing tool
     pkg-config # Helps with manual compilation and package/library path linking
     protonup-ng # Version manager for Proton-GE, which is a slightly enchanced fork of Proton
     qemu_kvm # Low level virtual machine manager.
     qimgv # Qt image viewer
+    rustdesk # Remote desktop
+    session-desktop # Relatively private messenger
     texliveFull # All the TeX packages.
     tex-fmt # LaTeX formatter
     tldr # Additional man pages with examples
     trash-cli # CLI tool to send to trash instead of permanently deleting
-    unstable.thorium-reader # EPUB reader
-    vim # Terminal text editor. Can be used as a backup if you have managed to trash both your nvim configuration and your DE.
+    thorium-reader # EPUB reader
+    # vim # Terminal text editor. Can be used as a backup if you have managed to trash both your nvim configuration and your DE.
     virt-manager # Graphical virtual machine manager.
     vlc # Video player and downloader
     vscodium # Free (as in freedom) VSCode alternative.
     wget # Tool for HTTP requests
-    unstable.yt-dlp # Video downloader for many platforms.
+    wireshark # Packet sniffer with statistics and extra data
+    yt-dlp # Video downloader for many platforms.
     zotero # Bibliography/reference manager
+  ] ++ [
+    # unstable.pkgs.yt-dlp
   ];
 
   # Nice shell with autocomplete.
