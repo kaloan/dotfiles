@@ -19,7 +19,7 @@
       "maccel" # Allows using maccel to control mouse acceleration without requiring administrator priviledges.
     ];
     packages = with pkgs; [
-      #  thunderbird
+      #  Just use Home-Manager
     ];
   };
 }

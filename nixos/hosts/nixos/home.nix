@@ -9,7 +9,7 @@
   imports = [
     ../../modules/home-manager/alacritty.nix
     ../../modules/home-manager/fish.nix
-    ../../modules/home-manager/librewolf.nix
+    # ../../modules/home-manager/librewolf.nix
     ../../modules/home-manager/obs.nix
     ../../modules/home-manager/vscodium.nix
 
