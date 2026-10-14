@@ -17,6 +17,7 @@
       "kvm" # Allows running of KVMs.
       "libvirtd" # Allows running libvirt.
       "maccel" # Allows using maccel to control mouse acceleration without requiring administrator priviledges.
+      "wireshark" # Allows sniff packages with wireshark
     ];
     packages = with pkgs; [
       #  Just use Home-Manager

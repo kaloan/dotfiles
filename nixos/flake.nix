@@ -27,7 +27,10 @@
     };
 
     # Mouse acceleration control
-    maccel.url = "github:Gnarus-G/maccel";
+    maccel = {
+      url = "github:Gnarus-G/maccel";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   # Use this type of syntax if hosts differ in modules or require extra configuration

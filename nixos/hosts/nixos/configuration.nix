@@ -33,6 +33,8 @@
     ../../modules/nixos/desktop/gnome.nix
     ../../modules/nixos/desktop/stylix.nix
 
+    ../../users/index.nix
+
     # The following are likely to be host-specific and left best to be kept private
     ./examples/networking.nix
     "${flakeRootPath}/${configurationRelativePath}/networking.nix"
@@ -44,26 +46,27 @@
     "${flakeRootPath}/${configurationRelativePath}/users.nix"
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users = { # Link users to specific personal configuration files.
-      "kaloan" = import ./home.nix;
+  nix = {
+    # Garbage collection is advisable
+    # Running a system installation for a long period of time results in bloated nix store
+    # Even more true if you have experimented and installed various packages previously that are currently unused
+    gc = {
+      automatic = true; # Periodic GC
+      persistent = true; # Whether to run GC after boot if the last GC date was missed
+      options = ""; # The options for nix-store --gc
+      dates = [ "weekly" ];
     };
-    # By default Home Manager tries to create some config files
-    # If they already exist, instead of overwriting, the configuration switch fails
-    backupFileExtension = "backup"; # This option just renames the existing files by appending this string as an extension. Equivalent to setting the "-b" CLI option.
-    # overwriteBackup = true; # Uncomment if you want to have only 1 backup when using `home-manager.backupFileExtension`
-    # backupCommand = ${pkgs.trash-cli}/bin/trash; # Execute ${home-manager.backupCommand} with the file as a CLI argument when a file already exists
+    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    settings = {
+      # Users allowed to use the Nix daemon. Defaults to <"*"> (all users). Prefix with <@> for groups.
+      allowed-users = [
+        "@wheel"
+      ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
   };
 
   # Install firefox.
@@ -83,7 +86,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search nixpkgs <PACKAGE_NAME>
   environment.systemPackages = with pkgs; [
-    #nvtop
+    #aerc # CLI email client
     alacritty # A good fast multiplatform minimalistic terminal. No tab functionality, so consider using tmux.
     alacritty-theme # Themes for alacritty.
     bat # Better `cat`
@@ -96,9 +99,11 @@
     dnsmasq # Required for some networking for virtualisation.
     eza # Better ls
     fastfetch # General hardware and OS details
+    fd
     ffmpeg-full # Converter of video formats. Sometimes required for video file thumbnails.
     ffmpeg-headless # Decodes videos to pass to ffmpegthumbnailer
     ffmpegthumbnailer # Generates thumbnails for videos
+    flightgear # FOSS flight simulator
     freecad # FOSS CAD
     fzf # Fast search
     gcc # C compiler
@@ -106,6 +111,7 @@
     gimp3 # Image editing tool
     git # Version control system.
     glances # System and ntwork monitor
+    gnumake # Make
     gnuplot # Simple data plotter
     hunspell # Spell checker
     hunspellDicts.en_GB-large # British English dictionary
@@ -125,7 +131,10 @@
     inkscape # Vector graphics editor.
     josm # OSM editor
     jq # CLI JSON processing
-    kdePackages.kdenlive # Video editing tool
+    # kdePackages.kdenlive # Video editing tool
+    # kdePackages.kontact # Personal information manager
+    # kdePackages.kontactinterface
+    kdePackages.kdeconnect-kde # Easy file transfer between devices.
     killall # Easy process terminator.
     lact # Graphics card info and overclocking
     libgcc
@@ -137,8 +146,11 @@
     lua # Scripting language
     lua-language-server # Language server for Lua
     mpv # Minimalistic video player
+    #neomutt # CLI email client
     neovim # Good text editor and potential IDE.
     nemo-with-extensions # Good file manager
+    net-tools # Networking
+    netcat-openbsd
     nixd # Nix language server
     nixfmt # Nix formatter.
     nodejs_24 # JS runtime
@@ -150,8 +162,10 @@
     protonup-ng # Version manager for Proton-GE, which is a slightly enchanced fork of Proton
     qemu_kvm # Low level virtual machine manager.
     qimgv # Qt image viewer
+    ripgrep
     rustdesk # Remote desktop
     session-desktop # Relatively private messenger
+    thunderbird # GUI email client
     texliveFull # All the TeX packages.
     tex-fmt # LaTeX formatter
     tldr # Additional man pages with examples
@@ -167,6 +181,7 @@
     zotero # Bibliography/reference manager
   ] ++ [
     # unstable.pkgs.yt-dlp
+    unstable.kdePackages.kdenlive
   ];
 
   # Nice shell with autocomplete.
@@ -193,6 +208,13 @@
     dejavu_fonts
     nerd-fonts.cousine
     nerd-fonts.sauce-code-pro
+    # times-newer-roman
     unicode-emoji
   ];
+
+  #EEnable KDE PIM
+  programs.kde-pim = {
+    enable = true;
+    kontact = true;
+  };
 }

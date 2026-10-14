@@ -15,6 +15,7 @@
     ../../modules/hardware/gpu/nvidia.nix
     ../../modules/hardware/fileSystems.nix
 
+    ../../modules/hardware/touchpad.nix
     ../../modules/hardware/mouse-acceleration.nix
   ];
 
